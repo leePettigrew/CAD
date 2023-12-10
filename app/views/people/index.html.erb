@@ -1,0 +1,79 @@
+<p style="color: green"><%= notice %></p>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Age</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">County</th>
+      <th scope="col">College</th>
+      <th scope="col">Course</th>
+      <th scope="col">Year</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @people.each do |person| %>
+      <tr id="<%= dom_id person %>">
+        <td><%= person.first_name %></td>
+        <td><%= person.last_name %></td>
+        <td><%= person.gender %></td>
+        <td><%= person.age %></td>
+        <td><%= person.user_name %></td>
+        <td><%= person.email %></td>
+        <td><%= person.phone %></td>
+        <td><%= person.address_street %></td>
+        <td><%= person.address_county %></td>
+        <td><%= person.college %></td>
+        <td><%= person.course %></td>
+        <td><%= person.year %></td>
+        <td>
+          <!-- Trigger button for modal -->
+          <%= link_to 'Show', '#', class: "btn btn-sm btn-info", data: { bs_toggle: "modal", bs_target: "#personModal#{person.id}" } %>
+
+           <!-- Modal structure -->
+          <div class="modal fade" id="personModal<%= person.id %>" tabindex="-1" aria-labelledby="personModalLabel<%= person.id %>" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document"> <!-- modal-lg for larger modals -->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="personModalLabel<%= person.id %>"><%= person.first_name %> <%= person.last_name %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Person details go here -->
+                  <p><strong>First Name:</strong> <%= person.first_name %></p>
+                  <p><strong>Last Name:</strong> <%= person.last_name %></p>
+                  <p><strong>Gender:</strong> <%= person.gender %></p>
+                  <p><strong>Age:</strong> <%= person.age %></p>
+                  <p><strong>Username:</strong> <%= person.user_name %></p> <!-- Ensure attribute names match those in your model -->
+                  <p><strong>Email:</strong> <%= person.email %></p>
+                  <p><strong>Phone:</strong> <%= person.phone %></p>
+                  <p><strong>Address:</strong> <%= person.address_street %></p>
+                  <p><strong>County:</strong> <%= person.address_county %></p>
+                  <p><strong>College:</strong> <%= person.college %></p>
+                  <p><strong>Course:</strong> <%= person.course %></p>
+                  <p><strong>Year:</strong> <%= person.year %></p>
+                  <!-- Repeat for any additional attributes -->
+                </div>
+                <div class="modal-footer">
+                  <%= link_to 'Edit', edit_person_path(person), class: "btn btn-primary" %>
+                  <%= button_to "Destroy this person", person_path(person), method: :delete, data: { confirm: "Are you sure?" }, 'data-turbolinks' => false %>
+
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Person', new_person_path, class: "btn btn-primary" %>
