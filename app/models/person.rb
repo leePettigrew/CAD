@@ -1,4 +1,10 @@
 class Person < ApplicationRecord
+
+	belongs_to :user
+
+
+
+
   # Validating presence of attributes
   validates :first_name, :last_name, :gender, :age, :user_name, :email, 
             :phone, :address_street, :address_county, :college, :course, :year, presence: true
@@ -16,7 +22,7 @@ class Person < ApplicationRecord
   validates :phone, format: { with: /\A\d{10}\z/, message: "must be 10 digits" }
 
   # Validating that year is a number and not greater than the current year
-  validates :year, numericality: { only_integer: true, less_than_or_equal_to: Date.current.year }
+  validates :year, numericality: { only_integer: true}
 
   # Add other specific validations as needed
 end

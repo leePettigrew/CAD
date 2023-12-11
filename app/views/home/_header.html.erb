@@ -6,32 +6,91 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="row w-100">
-        <!-- Left Section for Links -->
-        <div class="col-md-4">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <%= link_to "About Us", home_about_path, class:"nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Show People", people_path, class:"nav-link" %>
-            </li>
-          </ul>
-        </div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "About Us", home_about_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show People", people_path, class:"nav-link" %>
+        </li>
+      </ul>
+      
+    <form class="d-flex mx-4" role="search" style="flex-grow: 0.5;"> <!-- Adjust flex-grow for the form's width -->
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 55%;"> <!-- Adjust width as needed -->
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
-        <!-- Center Section for Search Bar -->
-        <div class="col-md-4 text-center">
-          <form class="d-flex justify-content-center" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
 
-        <!-- Right Section (Empty for alignment) -->
-        <div class="col-md-4">
-          <!-- Empty for alignment -->
-        </div>
-      </div>
+
+
+
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <% if user_signed_in? %>
+              <%= current_user.email %> <!-- or use current_user.name if you have a name attribute -->
+            <% else %>
+              Login
+            <% end %>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end p-4" aria-labelledby="navbarDropdownAccount" style="min-width: 300px;">
+            <% if user_signed_in? %>
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" , class: "btn btn-outline-primary btn-sm w-100 mb-2"%>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" , class: "btn btn-outline-danger btn-sm w-100 mb-2"%>
+            <% else %>
+              <%= form_for(User.new, as: :user, url: session_path(:user)) do |f| %>
+                <div class="form-group">
+                  <%= f.email_field :email, class: 'form-control form-control-sm', autofocus: true, autocomplete: "email", placeholder: "Email" %>
+                </div>
+
+                <p></p>
+
+                <div class="form-group">
+                  <%= f.password_field :password, class: 'form-control form-control-sm', autocomplete: "current-password", placeholder: "Password" %>
+                </div>
+
+                <p></p>
+
+                <% if devise_mapping.rememberable? %>
+                  <div class="form-group form-check">
+                    <%= f.check_box :remember_me, class: 'form-check-input' %>
+                    <%= f.label :remember_me, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+
+                <p></p>
+
+                <div class="form-group">
+                  <%= f.submit "Log in", class: "btn btn-outline-primary btn-sm w-100 mb-2" %>
+                </div>
+              <% end %>
+
+              <!-- Additional links for signing up, forgot password, etc. -->
+              <%= render "devise/shared/homelinks" %>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+
+
+
+
+
+
     </div>
   </div>
 </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+

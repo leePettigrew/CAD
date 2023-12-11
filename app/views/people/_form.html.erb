@@ -1,12 +1,22 @@
 <%= form_with(model: person, class: 'needs-validation', novalidate: true) do |form| %>
   <div class="row g-3">
 
+    <script>
+      function onlyLetters(event) {
+        var char = String.fromCharCode(event.which);
+        if (!(/[a-zA-Z]/.test(char))) {
+          event.preventDefault();
+        }
+      }
+    </script>
+
+    
     <div class="col-md-6">
-      <%= form.text_field :first_name, class: 'form-control', placeholder: "First Name", required: true %>
+      <%= form.text_field :first_name, class: 'form-control', placeholder: "First Name", required: true, onkeypress: "return onlyLetters(event)" %>
     </div>
 
     <div class="col-md-6">
-      <%= form.text_field :last_name, class: 'form-control', placeholder: "Last Name", required: true %>
+      <%= form.text_field :last_name, class: 'form-control', placeholder: "Last Name", required: true, onkeypress: "return onlyLetters(event)" %>
     </div>
 
     <div class="col-md-4">
@@ -14,7 +24,7 @@
     </div>
 
     <div class="col-md-4">
-      <%= form.number_field :age, class: 'form-control', placeholder: "Age", required: true %>
+      <%= form.number_field :age, class: 'form-control', placeholder: "Age", min: 18, max: 110, required: true %>
     </div>
 
     <div class="col-md-4">
@@ -34,23 +44,79 @@
     </div>
 
     <div class="col-md-6">
-      <%= form.select :address_county, ['County 1', 'County 2', 'County 3'], { prompt: 'Select County' }, class: 'form-select', required: true %>
+      <%= form.select :address_county, 
+        [
+          'Carlow', 'Cavan', 'Clare', 'Cork', 
+          'Donegal', 'Dublin', 'Galway', 'Kerry', 'Kildare', 
+          'Kilkenny', 'Laois', 'Leitrim', 'Limerick', 
+          'Longford', 'Louth', 'Mayo', 'Meath', 'Monaghan', 
+          'Offaly', 'Roscommon', 'Sligo', 'Tipperary', 
+          'Waterford', 'Westmeath', 'Wexford', 'Wicklow'
+        ], 
+        { prompt: 'Select County' }, 
+        class: 'form-select', 
+        required: true 
+      %>
     </div>
 
-    <div class="col-md-6">
-      <%= form.select :college, ['College 1', 'College 2', 'College 3'], { prompt: 'Select College' }, class: 'form-select', required: true %>
-    </div>
 
     <div class="col-md-6">
-      <%= form.text_field :course, class: 'form-control', placeholder: "Course", required: true %>
+      <%= form.text_field :college, list: "college-options", class: 'form-control', placeholder: "College", required: true %>
+      <datalist id="college-options">
+        <option value="TCD - Trinity College Dublin">
+        <option value="UCD - University College Dublin">
+        <option value="UG - University of Galway">
+        <option value="UCC - University College Cork">
+        <option value="UL - University of Limerick">
+        <option value="DCU - Dublin City University">
+        <option value="MU - Maynooth University">
+        <option value="TU Dublin - Technological University Dublin">
+        <option value="WIT - Waterford Institute of Technology">
+        <option value="GMIT - Galway-Mayo Institute of Technology">
+        <option value="IT Sligo - Institute of Technology Sligo">
+        <option value="LIT - Limerick Institute of Technology">
+        <option value="DkIT - Dundalk Institute of Technology">
+        <option value="IADT - Dún Laoghaire Institute of Art, Design and Technology">
+        <option value="LYIT - Letterkenny Institute of Technology">
+        <option value="CIT - Cork Institute of Technology">
+        <option value="AIT - Athlone Institute of Technology">
+        <option value="DIAS - Dublin Institute for Advanced Studies">
+        <option value="NCI - National College of Ireland">
+        <option value="CC - Carlow College">
+      </datalist>
     </div>
+
+
+
+    <div class="col-md-6">
+      <%= form.text_field :course, list: "course-options", class: 'form-control', placeholder: "Course", required: true %>
+      <datalist id="course-options">
+        <option value="Business Studies">
+        <option value="Computer Science">
+        <option value="Mechanical Engineering">
+        <option value="Electrical Engineering">
+        <option value="Civil Engineering">
+        <option value="Biomedical Science">
+        <option value="Nursing">
+        <option value="Pharmacy">
+        <option value="Law">
+        <option value="Economics">
+        <option value="Psychology">
+        <option value="English Literature">
+        <option value="History">
+        <option value="Sociology">
+        <option value="Fine Arts">
+      </datalist>
+    </div>
+
+  
 
     <div class="col-md-6">
       <%= form.number_field :year, class: 'form-control', placeholder: "Year", required: true %>
     </div>
 
     <div class="col-12">
-      <%= form.submit 'Submit', class: 'btn btn-primary' %>
+      <%= form.submit 'Submit', class: 'btn btn-outline-primary' %>
     </div>
 
   </div>
