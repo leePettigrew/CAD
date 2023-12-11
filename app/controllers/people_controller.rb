@@ -1,5 +1,7 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update , :destroy]
 
   # GET /people or /people.json
   def index
@@ -13,7 +15,8 @@ class PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new
+    #@person = Person.new
+    @person = current_user.people.build
   end
 
   # GET /people/1/edit
@@ -23,7 +26,9 @@ class PeopleController < ApplicationController
 
   # POST /people or /people.json
   def create
-    @person = Person.new(person_params)
+    #@person = Person.new(person_params)
+    @person = current_user.people.build(person_params)
+
 
     respond_to do |format|
       if @person.save
@@ -60,6 +65,19 @@ class PeopleController < ApplicationController
     end
   end
 
+  def correct_user
+    @person = current_user.people.find_by(id: params[:id])
+    redirect_to people_path, notice: "Not Authorized To Edit This Person" if @person.nil?
+
+  end
+
+
+
+
+
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
@@ -68,6 +86,6 @@ class PeopleController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_params
-      params.require(:person).permit(:first_name, :last_name, :gender, :age, :user_name, :email, :phone, :address_street, :address_county, :college, :course, :year)
+      params.require(:person).permit(:first_name, :last_name, :gender, :age, :user_name, :email, :phone, :address_street, :address_county, :college, :course, :year, :user_id)
     end
 end

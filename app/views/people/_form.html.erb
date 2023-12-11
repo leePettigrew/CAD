@@ -115,9 +115,16 @@
       <%= form.number_field :year, class: 'form-control', placeholder: "Year", required: true %>
     </div>
 
+    <div class="col-md-6">
+      <%= form.number_field :user_id, id: :person_user_id, class: 'form-control', value: (current_user ? current_user.id : nil), type: :hidden %>
+    </div>
+
     <div class="col-12">
       <%= form.submit 'Submit', class: 'btn btn-outline-primary' %>
     </div>
+    
+
+
 
   </div>
 <% end %>
