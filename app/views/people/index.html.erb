@@ -37,6 +37,9 @@
           <!-- Trigger button for modal -->
           <%= link_to 'View', '#', class: "btn btn-sm btn-primary", data: { bs_toggle: "modal", bs_target: "#personModal#{person.id}" } %>
 
+
+
+
            <!-- Modal structure -->
           <div class="modal fade" id="personModal<%= person.id %>" tabindex="-1" aria-labelledby="personModalLabel<%= person.id %>" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document"> <!-- modal-lg for larger modals -->
@@ -88,9 +91,7 @@
                 <div class="modal-footer">
                   <%= link_to 'Edit', '#', class: "btn btn-warning", data: { bs_toggle: "modal", bs_target: "#editPersonModal#{person.id}" } %>
                   <%= link_to 'Delete', '#', class: "btn btn-danger", data: { bs_toggle: "modal", bs_target: "#confirmationModal#{person.id}" } %>
-       
-
-                  
+    
                 </div>
               </div>
             </div>
@@ -134,7 +135,7 @@
                 </div>
               </div>
             </div>
-  
+
 
 
 
@@ -154,15 +155,15 @@
 </table>
 
 <!-- Link to trigger the modal -->
-<%= link_to 'Add Person', "#addPersonModal", class: "btn btn-primary", data: { bs_toggle: "modal", bs_target: "#addPersonModal" } %>
+<%= link_to 'Add Person', "#addPersonModal", class: "btn btn-primary mb-3", data: { bs_toggle: "modal", bs_target: "#addPersonModal" } %>
 
 <!-- Modal Structure -->
 <div class="modal fade" id="addPersonModal" tabindex="-1" aria-labelledby="addPersonModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="addPersonModalLabel">Add New Person</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <%= render "form", person: @person %>
@@ -170,4 +171,5 @@
     </div>
   </div>
 </div>
+
 

@@ -1,77 +1,57 @@
-<%= form_with(model: person) do |form| %>
-  <% if person.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<%= form_with(model: person, class: 'needs-validation', novalidate: true) do |form| %>
+  <div class="row g-3">
 
-      <ul>
-        <% person.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="col-md-6">
+      <%= form.text_field :first_name, class: 'form-control', placeholder: "First Name", required: true %>
     </div>
-  <% end %>
 
-  <div>
-    <%= form.label :first_name, style: "display: block" %>
-    <%= form.text_field :first_name %>
-  </div>
+    <div class="col-md-6">
+      <%= form.text_field :last_name, class: 'form-control', placeholder: "Last Name", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :last_name, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
+    <div class="col-md-4">
+      <%= form.select :gender, ['Male', 'Female'], { prompt: 'Select Gender' }, class: 'form-select', required: true %>
+    </div>
 
-  <div>
-    <%= form.label :gender, style: "display: block" %>
-    <%= form.text_field :gender %>
-  </div>
+    <div class="col-md-4">
+      <%= form.number_field :age, class: 'form-control', placeholder: "Age", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :age, style: "display: block" %>
-    <%= form.text_field :age %>
-  </div>
+    <div class="col-md-4">
+      <%= form.text_field :user_name, class: 'form-control', placeholder: "Username", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :user_name, style: "display: block" %>
-    <%= form.text_field :user_name %>
-  </div>
+    <div class="col-md-6">
+      <%= form.email_field :email, class: 'form-control', placeholder: "Email", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
+    <div class="col-md-6">
+      <%= form.telephone_field :phone, class: 'form-control', placeholder: "Phone Number", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone %>
-  </div>
+    <div class="col-md-6">
+      <%= form.text_field :address_street, class: 'form-control', placeholder: "Address Street", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :address_street, style: "display: block" %>
-    <%= form.text_field :address_street %>
-  </div>
+    <div class="col-md-6">
+      <%= form.select :address_county, ['County 1', 'County 2', 'County 3'], { prompt: 'Select County' }, class: 'form-select', required: true %>
+    </div>
 
-  <div>
-    <%= form.label :address_county, style: "display: block" %>
-    <%= form.text_field :address_county %>
-  </div>
+    <div class="col-md-6">
+      <%= form.select :college, ['College 1', 'College 2', 'College 3'], { prompt: 'Select College' }, class: 'form-select', required: true %>
+    </div>
 
-  <div>
-    <%= form.label :college, style: "display: block" %>
-    <%= form.text_field :college %>
-  </div>
+    <div class="col-md-6">
+      <%= form.text_field :course, class: 'form-control', placeholder: "Course", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :course, style: "display: block" %>
-    <%= form.text_field :course %>
-  </div>
+    <div class="col-md-6">
+      <%= form.number_field :year, class: 'form-control', placeholder: "Year", required: true %>
+    </div>
 
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.text_field :year %>
-  </div>
+    <div class="col-12">
+      <%= form.submit 'Submit', class: 'btn btn-primary' %>
+    </div>
 
-  <div>
-    <%= form.submit %>
   </div>
 <% end %>
