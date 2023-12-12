@@ -8,6 +8,25 @@
           event.preventDefault();
         }
       }
+
+      function initMap() {
+        // Initialize your map here if needed
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        initAutocomplete();
+      });
+
+      function initAutocomplete() {
+        var input = document.getElementById('address-street');
+        if (input) {
+          var autocomplete = new google.maps.places.Autocomplete(input);
+          // Additional Autocomplete settings and event listeners can be added here
+        }
+      }
+
+
+
     </script>
 
     
@@ -40,8 +59,9 @@
     </div>
 
     <div class="col-md-6">
-      <%= form.text_field :address_street, class: 'form-control', placeholder: "Address Street", required: true %>
+      <%= form.text_field :address_street, id: 'address-street', class: 'form-control', placeholder: "Address Street", required: true %>
     </div>
+
 
     <div class="col-md-6">
       <%= form.select :address_county, 
@@ -112,8 +132,9 @@
   
 
     <div class="col-md-6">
-      <%= form.number_field :year, class: 'form-control', placeholder: "Year", required: true %>
+      <%= form.number_field :year, class: 'form-control', placeholder: "Year", min: 1, max: 5, required: true %>
     </div>
+
 
     <div class="col-md-6">
       <%= form.number_field :user_id, id: :person_user_id, class: 'form-control', value: (current_user ? current_user.id : nil), type: :hidden %>
