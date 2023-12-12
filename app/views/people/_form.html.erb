@@ -9,21 +9,18 @@
         }
       }
 
-      function initMap() {
-        // Initialize your map here if needed
+      function initAutocomplete() {
+        const autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('address-street'), {types: ['geocode']}
+        );
+        autocomplete.setFields(['address_component']);
       }
 
       document.addEventListener('DOMContentLoaded', function() {
-        initAutocomplete();
-      });
-
-      function initAutocomplete() {
-        var input = document.getElementById('address-street');
-        if (input) {
-          var autocomplete = new google.maps.places.Autocomplete(input);
-          // Additional Autocomplete settings and event listeners can be added here
+        if (typeof google !== 'undefined') {
+          initAutocomplete();
         }
-      }
+      });
 
 
 
