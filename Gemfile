@@ -6,7 +6,7 @@ gem "rails", "~> 7.1.2"
 
 gem "sprockets-rails"
 
-gem "sqlite3", "~> 1.4"
+
 
 gem "puma", ">= 5.0"
 
@@ -29,8 +29,18 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 end
 
+
+group :production do
+  
+ gem 'pg', '~> 1.5', '>= 1.5.4'
+
+end
+
+
+
 group :development do
   gem "web-console"
+  gem "sqlite3", "~> 1.4"
 end
 
 group :test do

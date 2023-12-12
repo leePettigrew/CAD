@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to "About Us", home_about_path, class:"nav-link" %>
+          <%= link_to "About Me", home_about_path, class:"nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Show People", people_path, class:"nav-link" %>
@@ -29,7 +29,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <% if user_signed_in? %>
-              <%= current_user.email %> <!-- or use current_user.name if you have a name attribute -->
+              <%= current_user.email %> <!-- or use current_user.name if you have a name attribute/ which i dont and probably wont have -->
             <% else %>
               Login
             <% end %>
@@ -66,7 +66,7 @@
                 </div>
               <% end %>
 
-              <!-- Additional links for signing up, forgot password, etc. -->
+              <!-- Additional links for signing up, forgot password, etc.etcetcetc -->
               <%= render "devise/shared/homelinks" %>
             <% end %>
           </div>
