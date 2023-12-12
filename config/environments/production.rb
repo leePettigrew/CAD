@@ -102,11 +102,12 @@ Rails.application.configure do
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-    address: ENV['SMTP_ADDRESS'] || 'smtp.elasticemail.com',
-    port: ENV['SMTP_PORT'] || 2525,
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD'],
-    authentication: :login,
-    enable_starttls_auto: true
+      address: ENV['SMTP_ADDRESS'] || 'smtp.elasticemail.com',
+      port: ENV['SMTP_PORT'] || 2525,
+      user_name: ENV['SMTP_USERNAME'],
+      password: ENV['SMTP_PASSWORD'],
+      authentication: :login,
+      enable_starttls_auto: true
+    }
 
 end
