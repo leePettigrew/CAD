@@ -136,14 +136,14 @@
 <script>
   // Initializes Google Maps Places Autocomplete
   function initAutocomplete() {
-    const input = document.getElementById('address-street');
+    var input = document.getElementById('address-street');
     if (!input) return; // Exit if the input doesn't exist
 
-    const autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] });
+    var autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] });
     autocomplete.setFields(['address_components', 'geometry', 'formatted_address']);
 
     autocomplete.addListener('place_changed', function() {
-      const place = autocomplete.getPlace();
+      var place = autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("No details available for input: '" + place.name + "'");
         return;
@@ -153,8 +153,26 @@
     });
   }
 
-  // Add event listener to initialize Autocomplete when the modal is opened
-  $('#addPersonModal, [id^="editPersonModal"]').on('shown.bs.modal', function () {
+  // Function to initialize Autocomplete when the modal is shown
+  function showModalListener() {
     initAutocomplete();
+  }
+
+  // Add event listener to initialize Autocomplete when the modals are opened
+  document.addEventListener('DOMContentLoaded', function() {
+    var addModal = document.getElementById('addPersonModal');
+    var editModals = document.querySelectorAll('[id^="editPersonModal"]');
+
+    if (addModal) {
+      addModal.addEventListener('shown.bs.modal', showModalListener);
+    }
+
+    editModals.forEach(function(modal) {
+      modal.addEventListener('shown.bs.modal', showModalListener);
+    });
   });
 </script>
+
+<!-- Include the Google Maps API script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&libraries=places&callback=initAutocomplete" async defer></script>
+
