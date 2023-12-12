@@ -1,1 +1,51 @@
-<h1>About</h1>
+
+<h1 class="text-center my-4">About Me</h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center"><%= @about_me %></h2>
+          <p class="card-title text-center">Find Github repo of this site below</p>
+          <% if @repo_data %>
+            <div class="list-group">
+              <a href="<%= @repo_data['html_url'] %>" class="list-group-item list-group-item-action" target="_blank">
+                <h5 class="mb-1"><%= @repo_data['name'] %></h5>
+                <p class="mb-1"><%= @repo_data['description'] %></p>
+                <small>Default Branch: <%= @repo_data['default_branch'] %></small>
+
+              </a>
+              <!-- Add more fields as needed -->
+            </div>
+
+            <% if @commits_data.any? %>
+			  <div class="card mt-3">
+			    <div class="card-header">
+			      Recent Changes
+			    </div>
+			    <ul class="list-group list-group-flush">
+			      <% @commits_data.first(5).each do |commit| %>
+			        <a href="<%= commit['html_url'] %>" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+			          <div class="d-flex w-100 justify-content-between">
+			            <h6 class="mb-1 "style="color: green;"><%= truncate(commit['commit']['message'], length: 50) %></h6>
+			            <small><%= time_ago_in_words(commit['commit']['committer']['date']) %> ago</small>
+			          </div>
+			          <p class="mb-1">Committed by <%= commit['commit']['committer']['name'] %></p>
+			        </a>
+			      <% end %>
+			    </ul>
+			  </div>
+			<% end %>
+
+
+          <% else %>
+            <p class="text-center text-muted">Repository data is not available at the moment.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
