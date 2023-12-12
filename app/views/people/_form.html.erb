@@ -9,21 +9,6 @@
         }
       }
 
-      function initAutocomplete() {
-        const autocomplete = new google.maps.places.Autocomplete(
-          document.getElementById('address-street'), {types: ['geocode']}
-        );
-        autocomplete.setFields(['address_component']);
-      }
-
-      document.addEventListener('DOMContentLoaded', function() {
-        if (typeof google !== 'undefined') {
-          initAutocomplete();
-        }
-      });
-
-
-
     </script>
 
     
@@ -146,3 +131,30 @@
 
   </div>
 <% end %>
+
+
+<script>
+  // Initializes Google Maps Places Autocomplete
+  function initAutocomplete() {
+    const input = document.getElementById('address-street');
+    if (!input) return; // Exit if the input doesn't exist
+
+    const autocomplete = new google.maps.places.Autocomplete(input, { types: ['geocode'] });
+    autocomplete.setFields(['address_components', 'geometry', 'formatted_address']);
+
+    autocomplete.addListener('place_changed', function() {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) {
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+      // Populate the address_street field with the formatted address
+      input.value = place.formatted_address;
+    });
+  }
+
+  // Add event listener to initialize Autocomplete when the modal is opened
+  $('#addPersonModal, [id^="editPersonModal"]').on('shown.bs.modal', function () {
+    initAutocomplete();
+  });
+</script>
