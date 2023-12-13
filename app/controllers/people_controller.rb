@@ -105,8 +105,9 @@ class PeopleController < ApplicationController
 
     def index
       if params[:query].present?
-        query = params[:query]
-        @people = Person.where('first_name LIKE :query OR last_name LIKE :query OR email LIKE :query OR phone LIKE :query OR address_street LIKE :query', query: "%#{query}%")
+        field = params[:search_field] || 'first_name'
+        query = "%#{params[:query]}%"
+        @people = Person.where("#{field} LIKE ?", query)
       else
         @people = Person.all
       end

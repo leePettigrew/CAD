@@ -15,14 +15,27 @@
         </li>
       </ul>
 
-  <% if controller_name == 'people' && action_name == 'index' %>
+
+   
+
+    <% if controller_name == 'people' && action_name == 'index' %>
     <form class="d-flex mx-4" role="search" style="flex-grow: 0.5;"> <!-- Adjust flex-grow for the form's width -->
       <form class="d-flex" action="<%= people_path %>" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+        <select class="form-select me-2" name="search_field" aria-label="Search by">
+          <% ['first_name', 'last_name', 'gender', 'age', 'user_name', 'email', 'phone', 'address_street', 'address_county', 'college', 'course', 'year'].each do |field| %>
+            <option value="<%= field %>" <%= 'selected' if params[:search_field] == field %>>
+              <%= field.titleize %>
+            </option>
+          <% end %>
+        </select>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" value="<%= params[:query] %>">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </form>
-  <% end %>
+    <% end %>
+
+   
+
 
 
 
