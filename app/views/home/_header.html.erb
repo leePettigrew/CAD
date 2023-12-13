@@ -14,12 +14,15 @@
           <%= link_to "Show People", people_path, class:"nav-link" %>
         </li>
       </ul>
-      
-    <form class="d-flex mx-4" role="search" style="flex-grow: 0.5;"> <!-- Adjust flex-grow for the form's width -->
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 55%;"> <!-- Adjust width as needed -->
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
 
+  <% if controller_name == 'people' && action_name == 'index' %>
+    <form class="d-flex mx-4" role="search" style="flex-grow: 0.5;"> <!-- Adjust flex-grow for the form's width -->
+      <form class="d-flex" action="<%= people_path %>" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </form>
+  <% end %>
 
 
 

@@ -103,6 +103,17 @@ class PeopleController < ApplicationController
     end
 
 
+    def index
+      if params[:query].present?
+        query = params[:query]
+        @people = Person.where('first_name LIKE :query OR last_name LIKE :query OR email LIKE :query OR phone LIKE :query OR address_street LIKE :query', query: "%#{query}%")
+      else
+        @people = Person.all
+      end
+    end
+
+
+
 
 
 
