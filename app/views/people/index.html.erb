@@ -202,6 +202,21 @@
     </div>
   </div>
 
+
+<div class="col-auto">
+    <%= form_tag upload_csv_people_path, multipart: true, class: "d-inline" do %>
+      <%= file_field_tag :file, accept: 'text/csv', class: "form-control-file" %>
+      <%= submit_tag "Upload CSV", class: "btn btn-outline-secondary mb-3 ms-2" %>
+    <% end %>
+    <%= link_to "Export to CSV", export_csv_people_path, class: "btn btn-outline-primary mb-3 ms-2" %>
+
+  </div>
+
+
+
+
+
+
   <% else %> 
 
   <div class="container">

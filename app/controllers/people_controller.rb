@@ -1,3 +1,5 @@
+require 'csv'
+
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
@@ -70,6 +72,36 @@ class PeopleController < ApplicationController
     redirect_to people_path, notice: "Not Authorized To Edit This Person" if @person.nil?
 
   end
+
+
+
+    def upload_csv
+      if params[:file].present?
+        CSV.foreach(params[:file].path, headers: true) do |row|
+          person_attributes = row.to_h.symbolize_keys
+          person_attributes[:user_id] = current_user.id
+          current_user.people.create(person_attributes)
+        end
+        redirect_to people_path, notice: "CSV uploaded successfully."
+      else
+        redirect_to people_path, alert: "Please attach a CSV file."
+      end
+    rescue CSV::MalformedCSVError => e
+      redirect_to people_path, alert: "There was an error processing your CSV file."
+    end
+
+
+
+    def export_csv
+      csv_data = CSV.generate(headers: true) do |csv|
+        csv << Person.attribute_names
+        current_user.people.find_each do |person|
+          csv << person.attributes.values
+        end
+      end
+      send_data csv_data, filename: "people-#{Date.today}.csv"
+    end
+
 
 
 
