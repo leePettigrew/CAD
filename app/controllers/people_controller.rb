@@ -7,7 +7,10 @@ class PeopleController < ApplicationController
 
   # GET /people or /people.json
   def index
-    @people = Person.all
+    allowed_fields = ['first_name', 'last_name', 'gender', 'age', 'user_name', 'email', 'phone', 'address_street', 'address_county', 'college', 'course', 'year']
+    search_field = allowed_fields.include?(params[:search_field]) ? params[:search_field] : 'first_name'
+
+    @people = Person.search(params[:query], search_field).all
     @person = Person.new
   end
 
@@ -103,24 +106,7 @@ class PeopleController < ApplicationController
     end
 
 
-    def index
-      # Define an array of allowed fields for search
-      allowed_fields = ['first_name', 'last_name', 'gender', 'age', 'user_name', 'email', 'phone', 'address_street', 'address_county', 'college', 'course', 'year']
-
-      if params[:query].present?
-        # Check if the provided search field is in the list of allowed fields. If not, default to 'first_name'.
-        field = allowed_fields.include?(params[:search_field]) ? params[:search_field] : 'first_name'
-
-        # Prepare the query string by downcasing it and adding '%' for the LIKE operation.
-        query = "%#{params[:query].downcase}%"
-
-        # Perform a case-insensitive search.
-        @people = Person.where("LOWER(#{field}) LIKE ?", query)
-      else
-        # If no query is provided, simply return all records.
-        @people = Person.all
-      end
-    end
+  
 
 
 

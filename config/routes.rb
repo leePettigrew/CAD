@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post 'people/upload_csv', to: 'people#upload_csv', as: :upload_csv_people
   get 'people/export', to: 'people#export_csv', as: :export_csv_people
 
+  
+
   # Standard resourceful routes
   resources :people
 

@@ -25,4 +25,9 @@ class Person < ApplicationRecord
   validates :year, numericality: { only_integer: true}
 
   # Add other specific validations as needed
+
+
+  scope :search, ->(query, field) {
+    where("LOWER(#{field}) LIKE ?", "%#{query.downcase}%") if query.present?
+  }
 end
