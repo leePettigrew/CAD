@@ -27,6 +27,7 @@ gem 'devise', '~> 4.9', '>= 4.9.3'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'rspec-rails', '~> 5.0'
 end
 
 
